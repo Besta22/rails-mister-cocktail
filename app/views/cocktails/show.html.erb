@@ -1,0 +1,63 @@
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= cl_image_path (@cocktail.photo? ? @cocktail.photo.path : ""), crop: :fill %>');">
+  <div class="banner-content">
+    <h1><%= @cocktail.name %>
+      <%= link_to edit_cocktail_path(@cocktail) do %>
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to @cocktail, method: :delete, data: { confirm: 'Are you sure?' }  do %>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+    </h1>
+  </div>
+</div>
+
+  <br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-5">
+      <h4>Ingredient list:</h4>
+
+      <ul>
+        <% @cocktail.doses.each do |dose| %>
+        <li>
+          <strong><%= dose.ingredient.name %></strong> - <%= dose.description %>
+          <%= link_to dose_path(dose), method: :delete, data: { confirm: 'Are you sure?' }  do %>
+          <i class="fa fa-trash" aria-hidden="true"></i>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-xs-12 col-sm-7">
+      <h4>Add a new ingredient</h4>
+      <%= render 'doses/form' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+    <br>
+    <h3>Reviews!</h3>
+    <ul>
+      <% @cocktail.reviews.each do |review| %>
+        <li>
+        <% rating = review.rating.to_i %>
+        <% rating.times do %>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        <% end %> -
+        <%= review.content %>
+        </li>
+      <% end %>
+    </ul>
+    </div>
+    <div class="col-xs-12">
+      <h4>Add a review</h4>
+      <%= render 'reviews/form' %>
+    </div>
+  </div>
+
+  <br>
+  <%= link_to "Back to all cocktail list", cocktails_path %>
+<!-- </div> -->
+</div>
+<br>

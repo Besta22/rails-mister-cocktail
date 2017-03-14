@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <% @cocktails.each do |cocktail| %>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
+          url('<%= cl_image_path (cocktail.photo? ? (cocktail.photo.path) : "generic_cocktail_gmaz71"), height: 300, width: 400, crop: :fill %>')">
+          <div class="card-name">
+            <%= cocktail.name %>
+          </div>
+          <div class="card-rating">
+            <% if cocktail.reviews.any? %>
+              <% rating = cocktail.reviews.average(:rating).round(0).to_i %>
+              <% rating.times do %>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              <% end %>
+            <% end %>
+          </div>
+            <%= link_to "", cocktail_path(cocktail), class:"card-link"%>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-xs-12 col-sm-4">
+      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= image_path 'cocktail-add.png' %>')";>
+        <%= link_to "", new_cocktail_path, class:"card-link"%>
+        <div class="card-name card-add">
+          Add!
+        </div>
+      </div>
+
+    </div>
